@@ -3,6 +3,19 @@
 def add_neighbors(node, neighbors):
     for i in neighbors:
         node.append(i)
+        
+def read_graph_from_file(filename):
+    with open(filename, "r") as f:
+        lines = f.readlines()
+        nodes_number, edges_number = map(int, lines[0].split())
+        graph = [[] for _ in range(nodes_number)]
+
+        for line in lines[1:]:
+            u, v = map(int, line.split())
+            graph[u].append(v)
+            graph[v].append(u)
+
+    return graph
     
 def display_graph(graph):
     for i in range(len(graph)):
@@ -44,42 +57,29 @@ def greedy_coloring(graph):
         
 
 def main():
-    nodes_number = 8
-    graph = [[] for _ in range(nodes_number)]
+    graph = read_graph_from_file("good_order_chrown_graph.in")
     
-    add_neighbors(graph[0], [5, 6, 7])
-    add_neighbors(graph[1], [4, 6, 7])
-    add_neighbors(graph[2], [4, 5, 7])
-    add_neighbors(graph[3], [4, 5, 6])
-    add_neighbors(graph[4], [1, 2, 3])
-    add_neighbors(graph[5], [0, 2, 3])
-    add_neighbors(graph[6], [0, 1, 3])
-    add_neighbors(graph[7], [0, 1, 2])
-    
-    graph2 = [[] for _ in range(nodes_number)]
-    
-    add_neighbors(graph2[0], [3, 5, 7])
-    add_neighbors(graph2[1], [2, 4, 6])
-    add_neighbors(graph2[2], [1, 5, 7])
-    add_neighbors(graph2[3], [0, 4, 6])
-    add_neighbors(graph2[4], [1, 3, 7])
-    add_neighbors(graph2[5], [0, 2, 6])
-    add_neighbors(graph2[6], [1, 3, 5])
-    add_neighbors(graph2[7], [0, 2, 4])
-    
+    print(f"Best order case of chrown graph with {len(graph)} nodes:")
     display_graph(graph)
-    
     coloring = greedy_coloring(graph)
     
     for i in range(len(graph)):
         print(f"{i+1} has color: {coloring[i]}")
+    colors_nr = len(set(coloring)) 
+    print(f"Used {colors_nr} colors")
         
-    display_graph(graph2)
+    #####################################################################
+    print(f"\nWorst order case of chrown graph with {len(graph)} nodes:")
     
-    coloring2 = greedy_coloring(graph2)
+    graph = read_graph_from_file("bad_order_chrown_graph.in")
     
-    for i in range(len(graph2)):
-        print(f"{i+1} has color: {coloring2[i]}")
+    display_graph(graph)
+    coloring = greedy_coloring(graph)
+    
+    for i in range(len(graph)):
+        print(f"{i+1} has color: {coloring[i]}")
+    colors_nr = len(set(coloring)) 
+    print(f"Used {colors_nr} colors")
 
 if __name__ == "__main__":
     main()
