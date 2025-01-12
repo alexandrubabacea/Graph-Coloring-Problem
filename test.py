@@ -47,8 +47,8 @@ def good_order_crown_graph():
     crown_gen.generate_good_order_cg()
     graph = read_graph_from_file("good_order_crown_graph.in")
     
-    print(f"Best order case of crown graph with {len(graph)} nodes:")
-    # display_graph(graph)
+    print(f"Well ordered crown graph with {len(graph)} nodes:")
+    display_graph(graph)
     
     G = nx.Graph()
     for node, neighbors in enumerate(graph):
@@ -89,8 +89,8 @@ def bad_order_crown_graph():
     crown_gen.generate_bad_order_cg()
     graph = read_graph_from_file("bad_order_crown_graph.in")
     
-    print(f"Worst order case of crown graph with {len(graph)} nodes:")
-    # display_graph(graph)
+    print(f"Bad ordered crown graph with {len(graph)} nodes:")
+    display_graph(graph)
     
     G = nx.Graph()
     for node, neighbors in enumerate(graph):
@@ -214,16 +214,16 @@ def bad_order_chordal_graph():
         
     print()
     
-############################# backtracking graph #############################
-def backtracking_graph():
-    graph = read_graph_from_file("backtracking_graph.in")
+############################# bacsic graph #############################
+def basic_graph():
+    graph = read_graph_from_file("basic_graph.in")
     
     G = nx.Graph()
     for node, neighbors in enumerate(graph):
         for neighbor in neighbors:
             G.add_edge(node, neighbor)
 
-    print(f"Backtracking graph with {len(graph)} nodes:")
+    print(f"Basic graph with {len(graph)} nodes:")
     display_graph(graph)
     
     start_time = time.time()
@@ -260,7 +260,7 @@ def main():
     bad_order_crown_graph()
     good_order_chordal_graph()
     bad_order_chordal_graph()
-    backtracking_graph()
+    basic_graph()
 
 if __name__ == "__main__":
     main()
